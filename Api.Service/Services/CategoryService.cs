@@ -14,7 +14,7 @@ namespace Api.Service.Services
         {
             _repository = repository;
         }
-        
+
         public async Task<IEnumerable<Category>> GetAsync()
         {
             return await _repository.GetAsync();
@@ -34,6 +34,7 @@ namespace Api.Service.Services
         {
             return await _repository.UpdateAsync(category);
         }
+        
         public async Task<bool> DeleteAsync(int id)
         {
             return await _repository.DeleteAsync(id);
