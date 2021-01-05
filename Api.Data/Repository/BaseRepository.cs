@@ -33,7 +33,7 @@ namespace Api.Data.Repository
         {
             try
             {
-                return await _context.Set<T>().AsNoTracking().SingleOrDefaultAsync(x => x.Id == id);
+                return await _context.Set<T>().SingleOrDefaultAsync(x => x.Id == id);
             }
             catch (Exception ex)
             {
@@ -47,14 +47,14 @@ namespace Api.Data.Repository
             {
                 entity.CreatedAt = DateTime.UtcNow;
                 _context.Set<T>().Add(entity);
-                await _context.SaveChangesAsync();
-
-                return entity;
+                await _context.SaveChangesAsync();                
             }
             catch (Exception ex)
             {
                 throw new Exception($"\nAn error ocurred when try to Add a new entity: {ex.Message}\n");
             }
+
+            return entity;
         }
 
         public async Task<T> UpdateAsync(T entity)
@@ -67,15 +67,16 @@ namespace Api.Data.Repository
 
                 entity.CreatedAt = result.CreatedAt;
                 entity.UpdatedAt = DateTime.UtcNow;
-                _context.Entry(result).CurrentValues.SetValues(entity);
-                await _context.SaveChangesAsync();
 
-                return entity;
+                _context.Entry(result).CurrentValues.SetValues(entity);
+                await _context.SaveChangesAsync();                
             }
             catch (Exception ex)
             {
                 throw new Exception($"\nAn error ocurred when try to Update entity: {ex.Message}\n");
             }
+
+            return entity;
         }
 
         public async Task<bool> DeleteAsync(int id)
