@@ -19,6 +19,7 @@ namespace Application
         public void ConfigureServices(IServiceCollection services)
         {
             ConfigureRepository.ConfigureDependenciesRepository(services);
+            ConfigureService.ConfigureDependenciesService(services);
             services.AddControllers();
         }
 
