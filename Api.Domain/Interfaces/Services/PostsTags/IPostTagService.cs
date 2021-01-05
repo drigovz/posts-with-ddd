@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Api.Domain.Entities;
 
-namespace Api.Domain.Services.PostsTags
+namespace Api.Domain.Interfaces.Services.PostsTags
 {
     public interface IPostTagService
     {
