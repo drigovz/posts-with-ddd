@@ -11,5 +11,6 @@ namespace Api.Domain.Interfaces.Services.Comments
         Task<Comment> AddAsync(Comment comment);
         Task<Comment> UpdateAsync(Comment comment);
         Task<bool> DeleteAsync(int id);
+        Task<IEnumerable<Comment>> GetCommentsPostAsync(int postId);
     }
 }
