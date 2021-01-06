@@ -85,5 +85,24 @@ namespace Api.Application.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error when try to update category");
             }
         }
+
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult> Delete([BindRequired] int id)
+        {
+            try
+            {
+                var result = await _service.GetByIdAsync(id);
+                if (result == null)
+                    return NotFound($"Category with id {id} not found");
+
+                await _service.DeleteAsync(id);
+
+                return StatusCode(StatusCodes.Status200OK, "Category deleted succesfull");
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error when try to delete category");
+            }
+        }
     }
 }
