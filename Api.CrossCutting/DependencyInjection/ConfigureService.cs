@@ -1,5 +1,6 @@
 using Api.Domain.Interfaces.Services.Categories;
 using Api.Domain.Interfaces.Services.Comments;
+using Api.Domain.Interfaces.Services.Tags;
 using Api.Service.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,6 +12,7 @@ namespace Api.CrossCutting.DependencyInjection
         {
             serviceCollection.AddTransient<ICategoryService, CategoryService>();
             serviceCollection.AddTransient<ICommentServices, CommentService>();
+            serviceCollection.AddTransient<ITagServices, TagsService>();
         }
     }
 }
