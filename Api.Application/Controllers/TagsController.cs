@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Api.Domain.Entities;
+using Api.Domain.Interfaces.Services.PostsTags;
 using Api.Domain.Interfaces.Services.Tags;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,10 +17,12 @@ namespace Api.Application.Controllers
     public class TagsController : ControllerBase
     {
         private readonly ITagServices _service;
+        private readonly IPostTagService _postTagService;
 
-        public TagsController(ITagServices service)
+        public TagsController(ITagServices service, IPostTagService postTagService)
         {
             _service = service;
+            _postTagService = postTagService;
         }
 
         [HttpGet]
@@ -67,6 +70,23 @@ namespace Api.Application.Controllers
             catch (System.Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error when try to add a new tag");
+            }
+        }
+
+        [HttpPost("posts")]
+        public async Task<ActionResult> Create([FromBody] PostTag postTag)
+        {
+            try
+            {
+                if (postTag == null)
+                    return BadRequest();
+
+                var result = await _postTagService.AddAsync(postTag);
+                return new ObjectResult(result);
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error when try to add a new PostTag");
             }
         }
 
